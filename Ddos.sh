@@ -1044,6 +1044,10 @@ if [ ! -f /opt/DAws-master/DAws.py ]; then
 		echo -e "\e[32m[-] DAws already installed !\e[0m"
 	fi
 }
+#### pause function
+function pause(){
+   read -sn 1 -p "Press any key to continue..."
+}
 ######## Install Serbot
 function installserbot {
 if [ ! -f /opt/Serbot-master/server.py ]; then
