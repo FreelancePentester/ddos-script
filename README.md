@@ -8,6 +8,9 @@ Change log:
         Add link about how to use tools that you want to install..
         Fix some error
         Add Fix Device not managed error
+    v 2.0:
+        Add "Update Tools to latest verion" menu
+        Add "Change logon Kali Linux Wallpaper" option
 
 Review ddos script: https://www.youtube.com/watch?v=RZGmrzPdm0w
 
