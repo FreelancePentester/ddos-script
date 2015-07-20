@@ -7,6 +7,7 @@ Change log:
     v1.1: 
         Add link about how to use tools that you want to install..
         Fix some error
+        Add Fix Device not managed error
 
 Review ddos script: https://www.youtube.com/watch?v=RZGmrzPdm0w
 
