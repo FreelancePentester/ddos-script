@@ -333,6 +333,7 @@ if [ ! -f /root/Desktop/vpnbook.sh ]; then
 				cd /root/Desktop
 				wget https://github.com/Top-Hat-Sec/thsosrtl/blob/master/VeePeeNee/VeePeeNee.sh
 				mv VeePeeNee.sh vpnbook.sh
+				chmod a+x vpnbook.sh
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
@@ -398,7 +399,7 @@ function installarchivemanager {
 			if [[ $install = Y || $install = y ]] ; then	
 				echo -e "\033[31m====== Installing Archive Manager ======\033[m"
 				sleep 2
-				apt-get -y unrar unace rar unrar p7zip zip unzip p7zip-full p7zip-rar file-roller
+				apt-get -y install unrar unace rar unrar p7zip zip unzip p7zip-full p7zip-rar file-roller
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
@@ -413,7 +414,8 @@ function installgdebi {
 			if [[ $install = Y || $install = y ]] ; then	
 				echo -e "\033[31m====== Installing Gdebi ======\033[m"
 				sleep 2
-				apt-get -y gdebi
+				apt-get -y install gdebi &>/dev/nul
+				echo -e "\033[32m====== Done Installing Gdebi ======\033[m"
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
@@ -428,7 +430,8 @@ function installbittorrent {
 			if [[ $install = Y || $install = y ]] ; then	
 				echo -e "\033[31m====== Installing bittorrent ======\033[m"
 				sleep 2
-				apt-get -y deluge-torrent
+				apt-get -y install deluge-torrent &>/dev/null
+				echo -e "\033[32m====== Done Installing bittorrent ======\033[m"
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
@@ -437,12 +440,13 @@ function installbittorrent {
 function installfixsoundmute {
 	echo -e "\e[1;31mThis option will fix sound mute on Kali Linux on boot!\e[0m"
 	echo -e ""
-	echo -e "Do you want to install alasa-utils to fix it ? (Y/N)"
+	echo -e "Do you want to install alsa-utils to fix it ? (Y/N)"
 			read install
 			if [[ $install = Y || $install = y ]] ; then	
 				echo -e "\033[31m====== Fixing sound mute ======\033[m"
 				sleep 2
-				apt-get -y alsa-utils -y
+				apt-get -y install alsa-utils &>/dev/null
+				echo -e "\033[32m====== Done Installing alsa-utils ======\033[m"
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
@@ -526,7 +530,7 @@ case $menusel in
 		pause
 		softwaresandystemtools ;;
 	"Gdebi")
-		isntallgdebi
+		installgdebi
 		pause
 		softwaresandystemtools ;;
 	"bittorrent client")
