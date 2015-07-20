@@ -434,24 +434,26 @@ function installfixsoundmute {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
-######## Install Fix Device not managed error
-function installfixdevice {
-	echo -e "\e[1;31mThis option will Fix Device not managed error – wired network!\e[0m"
+######## Install Change Kali Login Wallpaper
+function installchangelogin {
+	echo -e "\e[1;31mThis option will change Kali Login Wallpaper!\e[0m"
+	echo -e "\e[1;31mPlace wallpaper that you want to make as Kali Login Wallpaper on Desktop\e[0m"
+	echo -e "\e[1;31mAfter that, Rename it to "login-background.png" (.png format)\e[0m"
 	echo -e ""
-	echo -e "Do you want to fix it ? (Y/N)"
+	echo -e "Do you want to change it ? (Y/N)"
 			read install
 			if [[ $install = Y || $install = y ]] ; then	
-				echo -e "\033[31m====== Fixing Device not managed error ======\033[m"
+				echo -e "\033[31m====== Changing Kali Login Wallpaper ======\033[m"
 				sleep 2
-				cd /etc/NetworkManager/
-				mv NetworkManager.conf NetworkManager.txt
-				sed -i 's/false/true/g' NetworkManager.txt
-				mv NetworkManager.txt NetworkManager.conf
-				echo -e "\033[32m====== Done Fixing ======\033[m"
+				cd /usr/share/images/desktop-base/
+				mv login-backgroung.{png,png.bak}
+				mv /root/Desktop/login-background.png /usr/share/images/desktop-base/
+				echo -e "\033[32m====== Done Changing ======\033[m"
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+
 ######## Software and System Tools menu
 function softwaresandystemtools {
 clear
@@ -459,7 +461,7 @@ echo -e "
 \033[31m#######################################################\033[m
                 Software and System Tools
 \033[31m#######################################################\033[m"
-select menusel in "VirtualBox" "Bleachbit" "GoldenDict" "Flash" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Fix Device not managed error" "Install All" "Back to Main"; do
+select menusel in "VirtualBox" "Bleachbit" "GoldenDict" "Flash" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Fix Device not managed error" "Change Kali Login Wallpaper" "Install All" "Back to Main"; do
 case $menusel in
 	"VirtualBox")
 		installvirtualbox
@@ -542,6 +544,10 @@ case $menusel in
 		installfixdevice
 		pause
 		softwaresandystemtools ;;
+	"Change Kali Login Wallpaper")
+		installchangelogin
+		pause
+		softwaresandystemtools ;;
 	"Install All")
 		echo -e "\e[36mJava is install seperately choose it from the Software and System Tools menu\e[0m"
 		installvirtualbox
@@ -562,6 +568,7 @@ case $menusel in
 		installgdebi
 		installbittorrent
 		installfixdevice
+		installchangelogin
 		echo -e "\e[32m[-] Done Installing Software and System Tools\e[0m"
 		pause
 		softwaresandystemtools ;;
@@ -591,13 +598,94 @@ if [ ! -f /opt/dirs3arch.py ]; then
 			if [[ $install = Y || $install = y ]] ; then	
 				echo -e "\033[31m====== Updating metasploit ======\033[m"
 				sleep 2
-				git clone https://github.com/maurosoria/dirs3arch.git /opt/dirs3arch-master/
+				git clone https://github.com/rapid7/metasploit-framework.git /opt/exploitation/metasploit/
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 	else
 		echo -e "\e[32m[-] Metasploit already updated !\e[0m"
 	fi
+}
+######## Update Social Engineering Toolkit
+function updateSET {
+	echo -e "\e[1;31mThis option will update latest SET version!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Updating SET ======\033[m"
+				sleep 2
+				git clone https://github.com/trustedsec/social-engineer-toolkit.git /opt/exploitation/set/
+				echo -e "\e[32m[-] Done!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Update Beef
+function updateBeef {
+	echo -e "\e[1;31mThis option will update latest Beef version!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Updating SET ======\033[m"
+				sleep 2
+				git clone https://github.com/beefproject/beef.git /opt/exploitation/beef/
+				echo -e "\e[32m[-] Done!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Update Veil-Evasion
+function updateVeil {
+	echo -e "\e[1;31mThis option will update latest Veil version!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Updating Veil-Evasion ======\033[m"
+				sleep 2
+				cd /opt/BypassAV/
+				rm -rf Veil-Evasion/
+				git clone https://github.com/Veil-Framework/Veil-Evasion.git /opt/BypassAV/Veil-Evasion/
+				echo -e "\e[32m[-] Done!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Update Unicorn
+function updateVeil {
+	echo -e "\e[1;31mThis option will update latest Unicorn version!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Updating Unicorn ======\033[m"
+				sleep 2
+				cd /opt/BypassAV/
+				rm -rf unicorn-master/
+				git clone https://github.com/trustedsec/unicorn.git /opt/BypassAV/unicorn-master/
+				echo -e "\e[32m[-] Done!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Update Backdoor Factory
+function updateBackdoorFactory {
+	echo -e "\e[1;31mThis option will update latest Backdoor Factory version!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Updating Backdoor Factory ======\033[m"
+				sleep 2
+				cd /opt/BypassAV/
+				rm -rf the-backdoor-factory/
+				git clone https://github.com/secretsquirrel/the-backdoor-factory.git /opt/BypassAV/the-backdoor-factory/
+				echo -e "\e[32m[-] Done!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
 }
 ######## Update tools to latest version
 function updatetools {
@@ -606,33 +694,42 @@ echo -e "
 \033[35m#######################################################\033[m
                 Update tools to latest version
 \033[35m#######################################################\033[m"
-select menusel in "Metasploit" "Beef" "Veil-Evasion" "Social Engineering Toolkit" "Unicorn" "Install All" "Back to Main"; do
+select menusel in "Metasploit" "Beef" "Veil-Evasion" "Social Engineering Toolkit" "Backdoor Factory" "Unicorn" "Update All" "Back to Main"; do
 case $menusel in
 	"Metasploit")
 		updatemetasploit
 		pause
 		updatetools ;;
-"Install All")
+	"Beef")
+		updateBeef
+		pause
+		updatetools ;;
+	"Veil-Evasion")
+		updateVeil
+		pause
+		updatetools ;;
+	"Social Engineering Toolkit")
+		updateSET
+		pause
+		updatetools ;;
+	"Backdoor Factory")
+		updateBackdoorFactory
+		pause
+		updatetools ;;
+	"Unicorn")
+		updateUnicorn
+		pause
+		updatetools ;;
+"Update All")
 		updatemetasploit
 		updateBeef
 		updateVeil
-		UpdateSET
-		installpinta
-		installrecordmydesktop
-		installgnometweaktool
-		installibus
-		installlibreoffice
-		installknotes
-		installvpnbook
-		installvpn
-		installtorbrowser
-		installfixsoundmute
-		installarchivemanager
-		installgdebi
-		installbittorrent
-		echo -e "\e[32m[-] Done Installing Software and System Tools\e[0m"
+		updateSET
+		updateBackdoorFactory
+		updateUnicorn
+		echo -e "\e[32m[-] Done Updating\e[0m"
 		pause
-		softwaresandystemtools ;;
+		updatetools ;;
 
 	"Back to Main")
 		clear
@@ -1201,7 +1298,7 @@ echo -e "
 |______________________________________________________________________________|
 \033[m                                        
                   	    Script by DDOS
-                     	    Version : 1.1 \033[32m$version\033[m
+                     	    Version : 2.0 \033[32m$version\033[m
 Script Location : \033[32m$0\033[m
 Connection Info :-----------------------------------------------
   Gateway: \033[32m$DEFAULT_ROUTE\033[m Interface: \033[32m$IFACE\033[m My LAN Ip: \033[32m$MYIP\033[m
@@ -1244,4 +1341,3 @@ done
 }
 
 while true; do mainmenu; done
-
