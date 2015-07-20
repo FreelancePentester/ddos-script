@@ -55,25 +55,6 @@ break
 
 done
 }
-### Update Exploitdb
-function updateexploitdb {
-	echo -e "\033[31mThis script will update your Exploitdb\033[m"
-	cd /usr/share/exploitdb
-	rm -rf archive.tar.bz2
-	wget http://www.exploit-db.com/archive.tar.bz2
-	tar xvfj archive.tar.bz2
-	rm -rf archive.tar.bz2
-	echo -e "\e[32m[-] Done Updating Exploitdb!\e[0m"	
-}
-
-#### Searchsploit
-function searchsploit {
-	echo -e "\033[31mWhat do you want to Hack Today?\033[m"
-	echo -e "\033[31mEnter a search term and hit Enter\033[m"
-	read searchterm
-	gnome-terminal --maximize -t "Seachsploit" --working-directory=WORK_DIR -x bash -c "searchsploit $searchterm; echo -e '\e[32m[-] Close this window when done!\e[0m'; bash" 2>/dev/null & sleep 2
-	
-}
 ######## Install Dirs3arch
 function installDirs3arch {
 if [ ! -f /opt/dirs3arch.py ]; then
@@ -304,6 +285,8 @@ function installjava {
 function installveil {
 if [ ! -f /opt/BypassAV/Veil-Evasion/Veil-Evasion.py ]; then
 	echo -e "\e[1;31mThis option will install Veil-Evasion!\e[0m"
+	echo -e "\e[1;31mHow to use Veil-Evasopm\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=8Z4gBKE6i-c\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -451,6 +434,24 @@ function installfixsoundmute {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+######## Install Fix Device not managed error
+function installfixdevice {
+	echo -e "\e[1;31mThis option will Fix Device not managed error – wired network!\e[0m"
+	echo -e ""
+	echo -e "Do you want to fix it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Fixing Device not managed error ======\033[m"
+				sleep 2
+				cd /etc/NetworkManager/
+				mv NetworkManager.conf NetworkManager.txt
+				sed -i 's/false/true/g' NetworkManager.txt
+				mv NetworkManager.txt NetworkManager.conf
+				echo -e "\033[32m====== Done Fixing ======\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######## Software and System Tools menu
 function softwaresandystemtools {
 clear
@@ -458,7 +459,7 @@ echo -e "
 \033[31m#######################################################\033[m
                 Software and System Tools
 \033[31m#######################################################\033[m"
-select menusel in "VirtualBox" "Bleachbit" "GoldenDict" "Flash" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Install All" "Back to Main"; do
+select menusel in "VirtualBox" "Bleachbit" "GoldenDict" "Flash" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Fix Device not managed error" "Install All" "Back to Main"; do
 case $menusel in
 	"VirtualBox")
 		installvirtualbox
@@ -537,12 +538,85 @@ case $menusel in
 		installbittorrent
 		pause
 		softwaresandystemtools ;;
+	"Fix Device not managed error")
+		installfixdevice
+		pause
+		softwaresandystemtools ;;
 	"Install All")
 		echo -e "\e[36mJava is install seperately choose it from the Software and System Tools menu\e[0m"
 		installvirtualbox
 		installbleachbit
 		installGoldendict
 		installflash
+		installpinta
+		installrecordmydesktop
+		installgnometweaktool
+		installibus
+		installlibreoffice
+		installknotes
+		installvpnbook
+		installvpn
+		installtorbrowser
+		installfixsoundmute
+		installarchivemanager
+		installgdebi
+		installbittorrent
+		installfixdevice
+		echo -e "\e[32m[-] Done Installing Software and System Tools\e[0m"
+		pause
+		softwaresandystemtools ;;
+
+	"Back to Main")
+		clear
+		mainmenu ;;
+		
+	*)
+		screwup
+		softwaresandystemtools ;;
+	
+		
+esac
+
+break
+
+done
+}
+######## Update metasploit
+function updatemetasploit {
+if [ ! -f /opt/dirs3arch.py ]; then
+	echo -e "\e[1;31mThis option will update latest metasploit version!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Updating metasploit ======\033[m"
+				sleep 2
+				git clone https://github.com/maurosoria/dirs3arch.git /opt/dirs3arch-master/
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] Metasploit already updated !\e[0m"
+	fi
+}
+######## Update tools to latest version
+function updatetools {
+clear
+echo -e "
+\033[35m#######################################################\033[m
+                Update tools to latest version
+\033[35m#######################################################\033[m"
+select menusel in "Metasploit" "Beef" "Veil-Evasion" "Social Engineering Toolkit" "Unicorn" "Install All" "Back to Main"; do
+case $menusel in
+	"Metasploit")
+		updatemetasploit
+		pause
+		updatetools ;;
+"Install All")
+		updatemetasploit
+		updateBeef
+		updateVeil
+		UpdateSET
 		installpinta
 		installrecordmydesktop
 		installgnometweaktool
@@ -566,7 +640,7 @@ case $menusel in
 		
 	*)
 		screwup
-		softwaresandystemtools ;;
+		updatetools ;;
 	
 		
 esac
@@ -580,6 +654,8 @@ function installbackdoorfactory {
 if [ ! -f /opt/BypassAV/the-backdoor-factory/backdoor.py ]; then
 	echo -e "\e[1;31mThis option will install Backdoor-Factory!\e[0m"
 	echo -e "\e[1;31mPatch PE, ELF, Mach-O binaries with shellcode\e[0m"
+		echo -e "\e[1;31mHow to use backdoor-factory\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=mnmeDfnaq7Q\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -622,6 +698,8 @@ function installshellter {
 if [ ! -f /usr/bin/shellter ]; then
 	echo -e "\e[1;31mThis option will install Shellter!\e[0m"
 	echo -e "\e[1;31mShellter is a dynamic shellcode injection tool, and probably the first dynamic PE infector ever created.\e[0m"
+	echo -e "\e[1;31mHow to use shellter\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=BIks4iLUI-8\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -641,6 +719,8 @@ function installunicorn {
 if [ ! -f /opt/BypassAV/unicorn-master/unicorn.py ]; then
 	echo -e "\e[1;31mThis option will install Unicorn!\e[0m"
 	echo -e "\e[1;31mUnicorn is a simple tool for using a PowerShell downgrade attack and inject shellcode straight into memory.\e[0m"
+	echo -e "\e[1;31mHow to use unicorn\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=23irqYIkIig\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -703,6 +783,8 @@ function installcommix {
 if [ ! -f /opt/commix-master/commix.py ]; then
 	echo -e "\e[1;31mThis option will install commix!\e[0m"
 	echo -e "\e[1;31mAutomated All-in-One OS Command Injection and Exploitation Tool\e[0m"
+	echo -e "\e[1;31mHow to use commix\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=5bDFLX4-d-8\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -745,6 +827,8 @@ function installgcat {
 if [ ! -f /opt/gcat-master/gcat.py ]; then
 	echo -e "\e[1;31mThis option will install gcat!\e[0m"
 	echo -e "\e[1;31mA fully featured backdoor that uses Gmail as a C&C server\e[0m"
+	echo -e "\e[1;31mHow to use gcat\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=AI2ZWEwaSd0\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -786,6 +870,8 @@ function installwig {
 if [ ! -f /opt/wig/wig.py ]; then
 	echo -e "\e[1;31mThis option will install wig!\e[0m"
 	echo -e "\e[1;31mWebApp Information Gatherer\e[0m"
+	echo -e "\e[1;31mHow to use gcat\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=vPVpE54W1KM\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -805,6 +891,8 @@ function installwindowsexploitsuggester {
 if [ ! -f /opt/Windows-Exploit-Suggester/windows-exploit-suggester.py ]; then
 	echo -e "\e[1;31mThis option will install Windows Exploit Suggester!\e[0m"
 	echo -e "\e[1;31mThis tool compares a targets patch levels against the Microsoft vulnerability database in order to detect potential missing patches on the target. It also notifies the user if there are public exploits and Metasploit modules available for the missing bulletins.\e[0m"
+	echo -e "\e[1;31mHow to use Windows Exploit Suggester\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=c-o24mo81CM\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -824,6 +912,8 @@ function installshellcodetools {
 if [ ! -f /opt/shellcode_tools-master/shellcode2exe.py ]; then
 	echo -e "\e[1;31mThis option will install shellcode tools!\e[0m"
 	echo -e "\e[1;31mMiscellaneous tools written in Python, mostly centered around shellcodes.\e[0m"
+	echo -e "\e[1;31mHow to use shellcode tools\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=q_HjKvIEae4\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -900,6 +990,8 @@ function installLazagne {
 if [ ! -f /opt/LaZagne-master/README.md ]; then
 	echo -e "\e[1;31mThis option will install LaZagne!\e[0m"
 	echo -e "\e[1;31mCredentials recovery project\e[0m"
+	echo -e "\e[1;31mHow to use LaZagne\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=QGrBNtjogLE\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -919,6 +1011,8 @@ function installLinuxexploitsuggester {
 if [ ! -f /opt/Linux_Exploit_Suggester-master/Linux_Exploit_Suggester.pl ]; then
 	echo -e "\e[1;31mThis option will install Linux Exploit Suggester!\e[0m"
 	echo -e "\e[1;31mLinux Exploit Suggester; based on operating system release number\e[0m"
+	echo -e "\e[1;31mHow to use Linux Exploit Suggester\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=Zlf8zEVCGm4\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -1113,18 +1207,10 @@ Connection Info :-----------------------------------------------
   Gateway: \033[32m$DEFAULT_ROUTE\033[m Interface: \033[32m$IFACE\033[m My LAN Ip: \033[32m$MYIP\033[m
 \033[32m###############################################################################\033[m"
 
-select menusel in "Update Kali" "Metasploit Services" "Exploitdb" "Software and System Tools" "Install Hacking Tools" "Must View" "EXIT PROGRAM"; do
+select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Update tools to latest version" "Must View" "EXIT PROGRAM"; do
 case $menusel in
 	"Update Kali")
 		updatekali
-		clear ;;
-	
-	"Metasploit Services")
-		metasploitservices
-		clear ;;
-		
-	"Exploitdb")
-		exploitdb
 		clear ;;
 	
 	"Software and System Tools")
@@ -1133,6 +1219,9 @@ case $menusel in
 	
 	"Install Hacking Tools")
 		hackingtools 
+		clear ;;
+	"Update tools to latest version")
+		updatetools
 		clear ;;
 
 	"Must View")
