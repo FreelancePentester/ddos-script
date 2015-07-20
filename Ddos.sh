@@ -967,7 +967,7 @@ function installwig {
 if [ ! -f /opt/wig/wig.py ]; then
 	echo -e "\e[1;31mThis option will install wig!\e[0m"
 	echo -e "\e[1;31mWebApp Information Gatherer\e[0m"
-	echo -e "\e[1;31mHow to use gcat\e[0m"
+	echo -e "\e[1;31mHow to use wig\e[0m"
 	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=vPVpE54W1KM\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
