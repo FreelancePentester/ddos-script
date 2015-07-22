@@ -1325,7 +1325,7 @@ echo -e "
 |______________________________________________________________________________|
 \033[m                                        
                   	    Script by DDOS
-                     	    Version : 2.0 \033[32m$version\033[m
+                     	    Version : 2.0.1 \033[32m$version\033[m
 Script Location : \033[32m$0\033[m
 Connection Info :-----------------------------------------------
   Gateway: \033[32m$DEFAULT_ROUTE\033[m Interface: \033[32m$IFACE\033[m My LAN Ip: \033[32m$MYIP\033[m
