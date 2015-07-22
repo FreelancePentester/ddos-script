@@ -453,7 +453,25 @@ function installchangelogin {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
-
+######## Install Firefox
+function installfirefox {
+	echo -e "\e[1;31mThis option will install Firefox!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Firefox ======\033[m"
+				sleep 2
+				apt-get remove iceweasel
+				echo -e “\ndeb http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt all main” | tee -a /etc/apt/sources.list > /dev/null
+				apt-key adv –recv-keys –keyserver keyserver.ubuntu.com C1289A29
+				apt-get update
+				apt-get -y install firefox-mozilla-build				
+				echo -e "\033[32m====== Done Installing ======\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######## Software and System Tools menu
 function softwaresandystemtools {
 clear
@@ -461,10 +479,15 @@ echo -e "
 \033[31m#######################################################\033[m
                 Software and System Tools
 \033[31m#######################################################\033[m"
-select menusel in "VirtualBox" "Bleachbit" "GoldenDict" "Flash" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Fix Device not managed error" "Change Kali Login Wallpaper" "Install All" "Back to Main"; do
+select menusel in "VirtualBox" "Bleachbit" "GoldenDict" "Flash" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Fix Device not managed error" "Change Kali Login Wallpaper" "Firefox" "Install All" "Back to Main"; do
 case $menusel in
 	"VirtualBox")
 		installvirtualbox
+		pause
+		softwaresandystemtools ;;
+
+	"Firefox")
+		installfirefox
 		pause
 		softwaresandystemtools ;;
 		
