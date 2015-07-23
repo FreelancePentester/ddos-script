@@ -638,6 +638,7 @@ function updateSET {
 			if [[ $install = Y || $install = y ]] ; then	
 				echo -e "\033[31m====== Updating SET ======\033[m"
 				sleep 2
+				rm -rf /opt/exploitation/set/
 				git clone https://github.com/trustedsec/social-engineer-toolkit.git /opt/exploitation/set/
 				echo -e "\e[32m[-] Done!\e[0m"
 			else
