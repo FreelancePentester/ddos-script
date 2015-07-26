@@ -1166,10 +1166,10 @@ function installsparta {
 				git clone https://github.com/SECFORCE/sparta.git /opt/exploitation/Network/sparta/
 				apt-get -y install python-elixir
 				apt-get -y install ldap-utils rwho rsh-client x11-apps finger
+				cd /opt/exploitation/Netowrk/
+				chmod a+x sparta/
 				cd /opt/exploitation/Network/sparta/
 				cp sparta /usr/bin/
-				cd ..
-				chmod a+x /opt/exploitation/Network/sparta/
 				echo -e "\e[32m[-] Done Installing!\e[0m"
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
