@@ -1168,6 +1168,8 @@ function installsparta {
 				apt-get -y install ldap-utils rwho rsh-client x11-apps finger
 				cd /opt/exploitation/Network/sparta/
 				cp sparta /usr/bin/
+				cd ..
+				chmod a+x /opt/exploitation/Network/sparta/
 				echo -e "\e[32m[-] Done Installing!\e[0m"
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
