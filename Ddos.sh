@@ -1170,6 +1170,8 @@ function installsparta {
 				chmod a+x sparta/
 				cd /opt/exploitation/Network/sparta/
 				cp sparta /usr/bin/
+				cd /usr/bin/
+				chmod a+x sparta
 				echo -e "\e[32m[-] Done Installing!\e[0m"
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
