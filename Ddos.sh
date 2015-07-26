@@ -648,6 +648,8 @@ function updateSET {
 ######## Update Beef
 function updateBeef {
 	echo -e "\e[1;31mThis option will update latest Beef version!\e[0m"
+	echo -e "\e[1;31mHow to use BeEF\e[0m"
+	echo -e "\e[1;31mhttps://www.youtube.com/playlist?list=PLgmq2kEqEXo-MltlkW0ww7T2Ru1BxN4qm\e[0m"
 	echo -e ""
 	echo -e "Do you want to update it ? (Y/N)"
 			read install
@@ -969,6 +971,8 @@ function installmaligno {
 if [ ! -f /opt/BypassAV/maligno/maligno_srv.py ]; then
 	echo -e "\e[1;31mThis option will install maligno!\e[0m"
 	echo -e "\e[1;31mMaligno is an open source penetration testing tool written in Python that serves Metasploit payloads. It generates shellcode with msfvenom and transmits it over HTTP or HTTPS. The shellcode is encrypted with AES and encoded prior to transmission.\e[0m"
+	echo -e "\e[1;31mHow to use Maligno\e[0m"
+	echo -e "\e[1;31mhttps://www.youtube.com/watch?v=b57d0IG_gaY\e[om"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -1156,19 +1160,21 @@ if [ ! -f /opt/Linux_Exploit_Suggester-master/Linux_Exploit_Suggester.pl ]; then
 function installsparta {
 	echo -e "\e[1;31mThis option will install sparta!\e[0m"
 	echo -e "\e[1;31mNetwork Infrastructure Penetration Testing Tool.\e[0m"
+	echo -e "\e[1;31mHow to use Sparta\e[0m"
+	echo -e "\e[1;31mhttp://youtu.be/VgVZMgXvHv4\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
 			if [[ $install = Y || $install = y ]] ; then	
 				echo -e "\033[31m====== Installing sparta ======\033[m"
 				sleep 2
-				rm -rf /opt/exploitation/Network/sparta/
-				git clone https://github.com/SECFORCE/sparta.git /opt/exploitation/Network/sparta/
+				rm -rf /usr/share/sparta/
+				git clone https://github.com/SECFORCE/sparta.git /usr/share/sparta/
 				apt-get -y install python-elixir
 				apt-get -y install ldap-utils rwho rsh-client x11-apps finger
-				cd /opt/exploitation/Netowrk/
+				cd  /usr/share/
 				chmod a+x sparta/
-				cd /opt/exploitation/Network/sparta/
+				cd /usr/share/sparta/
 				cp sparta /usr/bin/
 				cd /usr/bin/
 				chmod a+x sparta
