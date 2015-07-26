@@ -1152,6 +1152,27 @@ if [ ! -f /opt/Linux_Exploit_Suggester-master/Linux_Exploit_Suggester.pl ]; then
 		echo -e "\e[32m[-] Linux Exploit Suggester already installed !\e[0m"
 	fi
 }
+######## Install sparta
+function installsparta {
+	echo -e "\e[1;31mThis option will install sparta!\e[0m"
+	echo -e "\e[1;31mNetwork Infrastructure Penetration Testing Tool.\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing sparta ======\033[m"
+				sleep 2
+				rm -rf /opt/exploitation/Network/sparta/
+				git clone https://github.com/SECFORCE/sparta.git /opt/exploitation/Network/sparta/
+				apt-get -y install python-elixir
+				apt-get -y install ldap-utils rwho rsh-client x11-apps finger
+				cd /opt/exploiation/Network/sparta/
+				cp sparta /usr/bin/
+				echo -e "\e[32m[-] Done Installing!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######### Install Hacking Tools
 function hackingtools {
 clear
@@ -1160,7 +1181,7 @@ echo -e "
                 Install Hacking Tools
 \033[31m#######################################################\033[m"
 
-select menusel in "Veil-Framework" "Backdoor-Factory" "Shellter" "Unicorn" "pyobfuscate" "Dirs3arch" "autopwn" "mitmf" "commix" "EyeWitness" "gcat" "maligno" "wig" "Windows Exploit Suggester" "Linux Exploit Suggester" "shellcode_tools" "DAws" "Serbot" "Pompem" "LaZagne" "Install All" "Back to Main"; do
+select menusel in "Veil-Framework" "Backdoor-Factory" "Shellter" "Unicorn" "pyobfuscate" "sparta" "Dirs3arch" "autopwn" "mitmf" "commix" "EyeWitness" "gcat" "maligno" "wig" "Windows Exploit Suggester" "Linux Exploit Suggester" "shellcode_tools" "DAws" "Serbot" "Pompem" "LaZagne" "Install All" "Back to Main"; do
 case $menusel in
 	"Veil-Framework")
 		installveil
@@ -1281,6 +1302,7 @@ case $menusel in
 		installserbot
 		installpompem
 		installLazagne
+		installsparta
 		echo -e "\e[32m[-] Done Installing hackingtools\e[0m"
 		pause
 		extras ;;
