@@ -462,11 +462,11 @@ function installfirefox {
 			if [[ $install = Y || $install = y ]] ; then	
 				echo -e "\033[31m====== Installing Firefox ======\033[m"
 				sleep 2
-				apt-get remove iceweasel
-				echo -e “\ndeb http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt all main” | tee -a /etc/apt/sources.list > /dev/null
+				apt-get -y remove iceweasel
+				echo -e deb http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt all main | tee -a /etc/apt/sources.list > /dev/null
 				apt-key adv –recv-keys –keyserver keyserver.ubuntu.com C1289A29
 				apt-get update
-				apt-get -y install firefox-mozilla-build				
+				apt-get --force-yes install firefox-mozilla-build				
 				echo -e "\033[32m====== Done Installing ======\033[m"
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
