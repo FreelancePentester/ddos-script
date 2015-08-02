@@ -1183,6 +1183,25 @@ function installsparta {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+######## Install Avoid
+function installavoid {
+
+	echo -e "\e[1;31mThis option will install Avoid!\e[0m"
+	echo -e "\e[1;31mMetasploit AV Evasion Tool\e[0m"
+	echo -e "\e[1;31mHow to use Avoid\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=1i5toxB5VpQ\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Avoid ======\033[m"
+				sleep 2
+				rm -rf /opt/BypassAV/Avoid/
+				git clone https://github.com/nccgroup/metasploitavevasion.git /opt/BypassAV/Avoid/
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######### Install Hacking Tools
 function hackingtools {
 clear
@@ -1191,7 +1210,7 @@ echo -e "
                 Install Hacking Tools
 \033[31m#######################################################\033[m"
 
-select menusel in "Veil-Framework" "Backdoor-Factory" "Shellter" "Unicorn" "pyobfuscate" "sparta" "Dirs3arch" "autopwn" "mitmf" "commix" "EyeWitness" "gcat" "maligno" "wig" "Windows Exploit Suggester" "Linux Exploit Suggester" "shellcode_tools" "DAws" "Serbot" "Pompem" "LaZagne" "Install All" "Back to Main"; do
+select menusel in "Veil-Framework" "Backdoor-Factory" "Shellter" "Unicorn" "avoid" "pyobfuscate" "sparta" "Dirs3arch" "autopwn" "mitmf" "commix" "EyeWitness" "gcat" "maligno" "wig" "Windows Exploit Suggester" "Linux Exploit Suggester" "shellcode_tools" "DAws" "Serbot" "Pompem" "LaZagne" "Install All" "Back to Main"; do
 case $menusel in
 	"Veil-Framework")
 		installveil
@@ -1200,6 +1219,11 @@ case $menusel in
 		
 	"Backdoor-Factory")
 		installbackdoorfactory
+		pause
+		hackingtools ;;
+		
+	"avoid")
+		installavoid
 		pause
 		hackingtools ;;
 		
@@ -1311,6 +1335,7 @@ case $menusel in
 		installdaws
 		installserbot
 		installpompem
+		installavoid
 		installLazagne
 		installsparta
 		echo -e "\e[32m[-] Done Installing hackingtools\e[0m"
