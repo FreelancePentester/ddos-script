@@ -1202,6 +1202,24 @@ function installavoid {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+######## Install wifite
+function installwifite {
+	echo -e "\e[1;31mThis option will install wifite!\e[0m"
+	echo -e "\e[1;31mAn automated wireless attack tool.\e[0m"
+	echo -e "\e[1;31mHow to use wifite\e[0m"
+	echo -e "\e[1;31mhttps://www.youtube.com/watch?v=RsBZV96ADrU\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing wifite ======\033[m"
+				sleep 2
+				rm -rf /opt/Wireless/wifite/
+				git clone https://github.com/derv82/wifite.git /opt/Wireless/wifite/
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######### Install Hacking Tools
 function hackingtools {
 clear
@@ -1210,11 +1228,16 @@ echo -e "
                 Install Hacking Tools
 \033[31m#######################################################\033[m"
 
-select menusel in "Veil-Framework" "Backdoor-Factory" "Shellter" "Unicorn" "avoid" "pyobfuscate" "sparta" "Dirs3arch" "autopwn" "mitmf" "commix" "EyeWitness" "gcat" "maligno" "wig" "Windows Exploit Suggester" "Linux Exploit Suggester" "shellcode_tools" "DAws" "Serbot" "Pompem" "LaZagne" "Install All" "Back to Main"; do
+select menusel in "Veil-Framework" "Backdoor-Factory" "Shellter" "Unicorn" "avoid" "pyobfuscate" "wifite" "sparta" "Dirs3arch" "autopwn" "mitmf" "commix" "EyeWitness" "gcat" "maligno" "wig" "Windows Exploit Suggester" "Linux Exploit Suggester" "shellcode_tools" "DAws" "Serbot" "Pompem" "LaZagne" "Install All" "Back to Main"; do
 case $menusel in
 	"Veil-Framework")
 		installveil
 		pause 
+		hackingtools ;;
+		
+	"wifite")
+		installwifite
+		pause
 		hackingtools ;;
 		
 	"Backdoor-Factory")
