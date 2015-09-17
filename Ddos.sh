@@ -432,7 +432,7 @@ function installvlc {
 			fi
 }
 ######## Install VLC
-function installvlc {
+function installvmware {
 	echo -e "\e[1;31mThis option will fix VMare error!\e[0m"
 	echo -e ""
 	echo -e "Do you want to fix it ? (Y/N)"
@@ -470,6 +470,11 @@ case $menusel in
 
 	"Fix VMWare")
 		installvmware
+		pause
+		softwaresandystemtools ;;
+		
+	"Fix VLC")
+		installvlc
 		pause
 		softwaresandystemtools ;;
 
