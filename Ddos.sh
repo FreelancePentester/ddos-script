@@ -6,40 +6,48 @@ IFACE=$(ip route show | awk '(NR == 2) {print $3}')
 JAVA_VERSION=`java -version 2>&1 |awk 'NR==1{ gsub(/"/,""); print $3 }'`
 MYIP=$(ip route show | awk '(NR == 2) {print $9}')
 ######## Update Kali
-function updatekali {
+function Desktopmanager {
 clear
 echo -e "
 \033[31m#######################################################\033[m
-                Let's Update Kali
+                Change Kali Desktop Manager
 \033[31m#######################################################\033[m"
-select menusel in "Update sources.list" "Update Kali" "Update and Clean Kali" "Back to Main"; do
+select menusel in "XFCE Desktop" "KDE Desktop" "LXDE Desktop" "Conky" "Back to Main"; do
 case $menusel in
-        "Update sources.list")
+        "XFCE Desktop")
                 
-		echo -e "\033[31m====== Adding new sources list and updating ======\033[m"
-		echo "" >> /etc/apt/sources.list
-		echo '# Security updates ' >> /etc/apt/sources.list
-		echo 'deb http://http.kali.org/kali kali main non-free contrib' >> /etc/apt/sources.list
-		echo 'deb http://security.kali.org/kali-security kali/updates main contrib non-free' >> /etc/apt/sources.list
-		echo 'deb-src http://http.kali.org/kali kali main non-free contrib' >> /etc/apt/sources.list
-		echo 'deb-src http://security.kali.org/kali-security kali/updates main contrib non-free' >> /etc/apt/sources.list
-		apt-get update
+		echo -e "\033[31m====== Installing XFCE Desktop ======\033[m"
+		echo -e "\033[31m====== View XFCE Desktop before installing it ======\033[m"
+		echo -e "\033[31m====== https://www.youtube.com/watch?v=HjVrzMxw3rc ======\033[m"
+		apt-get install kali-defaults kali-root-login desktop-base xfce4 xfce4-places-plugin xfce4-goodies
+		echo xfce4-session > /root/.xsession
+		echo -e "\033[32mDone Installing\033[m"
 		pause
 		clear ;;	
-	"Update Kali")
-		clear
-		echo -e "\033[32mUpdating Kali\033[m"
-		#apt-get update && apt-get -y dist-upgrade
-		apt-get update && apt-get -y upgrade 
-		echo -e "\033[32mDone updating kali\033[m"
+	"KDE Desktop")
+
+		echo -e "\033[31m====== Installing KDE Desktop ======\033[m"
+		echo -e "\033[31m====== View KDE Desktop before installing it ======\033[m"
+		echo -e "\033[31m====== https://www.youtube.com/watch?v=IPwKWlIxwsk ======\033[m"
+		apt-get install kali-defaults kali-root-login desktop-base kde-plasma-desktop
+		echo -e "\033[32mDone Installing\033[m"
 		pause
 		clear ;;
-	
-	"Update and Clean Kali")
-		clear
-		echo -e "\033[32mUpdating and Cleaning Kali\033[m"
-		apt-get update && apt-get -y dist-upgrade && apt-get autoremove -y && apt-get -y autoclean
-		echo -e "\033[32mDone updating and cleaning kali\033[m" ;;
+	"LXDE Desktop")
+
+		echo -e "\033[31m====== Installing LXDE Desktop ======\033[m"
+		echo -e "\033[31m====== View LXDE Desktop before installing it ======\033[m"
+		echo -e "\033[31m====== https://www.youtube.com/watch?v=vWTrDiAIdmY ======\033[m"
+		apt-get install lxde-core lxde kali-defaults kali-root-login desktop-base
+		echo -e "\033[32mDone Installing\033[m"
+		pause
+		clear ;;
+	"Conky")
+		chmod a+x conky.sh
+		./conky.sh
+		pause
+		clear ;;
+		
 		
 	"Back to Main")
 		clear
@@ -47,7 +55,7 @@ case $menusel in
 		
 	*)
 		screwup
-		updatekali ;;
+		Desktopmanager ;;
 
 esac
 
@@ -76,31 +84,20 @@ if [ ! -f /opt/dirs3arch.py ]; then
 }
 ######### Install VirutalBox
 function installvirtualbox {
-	echo -e "\e[1;33mThis option will install VirtualBox.\e[0m"
-	echo "Do you want to install it ? (Y/N)"
-	read install
-	if [[ $install = Y || $install = y ]] ; then
-			read -p "Are you using a 32bit or 64bit operating system [ENTER: 32 or 64]? " operatingsys
-			if [ "$operatingsys" == "32" ]; then 
-				echo -e "\e[1;33m[+] Downloading Virtualbox for Debian 32bit\e[0m"
-				wget http://download.virtualbox.org/virtualbox/4.3.30/virtualbox-4.3_4.3.30-101610~Debian~wheezy_i386.deb
-				echo -e "\e[31m[-] Done with download!\e[0m"
-				echo -e "\e[1;33m[+] Installing VirtualBox\e[0m"
-				dpkg -i virtualbox-4.3_4.3.30-101610~Debian~wheezy_i386.deb
-				rm virtualbox-4.3_4.3.30-101610~Debian~wheezy_i386.deb
-				echo -e "\e[34m[-] Done installing VirtualBox on your Kali Linux system!\e[0m"
+
+	echo -e "\e[1;31mThis option will install virtualbox!\e[0m"
+	echo -e "\e[1;31mOf course, Your source.list correct!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Virtualbox ======\033[m"
+				sleep 2
+				apt-get update && apt-get install -y linux-headers-$(uname -r)
+				apt-get install virtualbox
 			else
-				echo -e "\e[1;33m[+] Downloading VirtualBox for Debian 64bit\e[0m"
-				wget http://download.virtualbox.org/virtualbox/4.3.30/virtualbox-4.3_4.3.30-101610~Debian~wheezy_amd64.deb
-				echo -e "\e[31m[-] Done with download!\e[0m"
-				echo -e "\e[1;33m[+] Installing VirtualBox\e[0m"
-				dpkg -i virtualbox-4.3_4.3.30-101610~Debian~wheezy_amd64.deb
-				rm virtualbox-4.3_4.3.30-101610~Debian~wheezy_amd64.deb
-				echo -e "\e[34m[-] Done installing VirtualBox on your Kali Linux system!\e[0m"
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
-		else
-			echo -e "\e[34m[-] Ok,maybe later !\e[0m"
-		fi
 }
 #### Bleachbit Installation
 function installbleachbit {
@@ -116,7 +113,7 @@ function installbleachbit {
 		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 	fi	
 }
-#### GoldenDict Installation
+#### Installation GoldenDict
 function installGoldendict {
 	echo -e "\e[1;31mThis option will install GoldenDict!\e[0m"
 	echo -e ""
@@ -130,35 +127,6 @@ function installGoldendict {
 		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 	fi	
 }
-######## Install Flash
-function installflash {
-	echo "This will install Flash. Do you want to install it ? (Y/N)"
-	read install
-	if [[ $install = Y || $install = y ]] ; then
-		echo -e "\e[31m[+] Installing Flash now!\e[0m"
-		apt-get -y install flashplugin-nonfree
-		update-flashplugin-nonfree --install
-		echo -e "\e[32m[-] Done Installing Flash!\e[0m"		
-	else
-		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
-	fi
-	
-	
-}
-######## Install RecordMyDesktop
-function installrecordmydesktop {
-	echo "This will install RecordMyDesktop. Do you want to install it ? (Y/N)"
-	read install
-	if [[ $install = Y || $install = y ]] ; then
-		echo -e "\e[31m[+] Installing RecordMyDesktop now!\e[0m"
-		apt-get -y install gtk-recordmydesktop
-		echo -e "\e[32m[-] Done Installing RecordMyDesktop!\e[0m"		
-	else
-		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
-	fi
-	
-	
-}
 ######## Install Pinta
 function installpinta {
 	echo "This will install Pinta (image editor). Do you want to install it ? (Y/N)"
@@ -167,20 +135,6 @@ function installpinta {
 		echo -e "\e[31m[+] Installing Pinta now!\e[0m"
 		apt-get -y install pinta
 		echo -e "\e[32m[-] Done Installing Pinta!\e[0m"		
-	else
-		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
-	fi
-	
-	
-}
-######## Install GnomeTweakTool
-function installgnometweaktool {
-	echo "This will install Gnome Tweak Tools. Do you want to install it ? (Y/N)"
-	read install
-	if [[ $install = Y || $install = y ]] ; then
-		echo -e "\e[31m[+] Installing Gnome Tweak Tool now!\e[0m"
-		apt-get -y install gnome-tweak-tool
-		echo -e "\e[32m[-] Done Installing Gnome Tweak Tool!\e[0m"		
 	else
 		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 	fi
@@ -231,55 +185,45 @@ function installknotes {
 }
 # JAVA JDK Update
 #################################################################################
+######## Install Java version 8
 function installjava {
-	echo -e "\e[1;31mThis option will update your JDK version to jdk1.7.0\e[0m"
-	echo -e "\e[1;31mUse this only if java not installed or your version is older than this one!\e[0m"
-	echo -e "\e[1;31mYour current Version is : $JAVA_VERSION\e[0m"
-	echo "Do you want to install it ? (Y/N)"
-	read install
-	if [[ $install = Y || $install = y ]] ; then
-			read -p "Are you using a 32bit or 64bit operating system [ENTER: 32 or 64]? " operatingsys
-			if [ "$operatingsys" == "32" ]; then 
-				echo -e "\e[1;31m[+] Downloading and Updating to jdk1.7.0\e[0m"
-				echo -e ""
-				wget --no-cookies --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com" "http://download.oracle.com/otn-pub/java/jdk/7/jdk-7-linux-i586.tar.gz"
-				tar zxvf jdk-7-linux-i586.tar.gz
-				mv jdk1.7.0 /usr/lib/jvm
-				update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.7.0/jre/bin/java 2
-				echo -e "\e[1;34mWhen prompted, select option 2\e[0m"
+	echo -e "\e[1;31mThis option will install java!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Java ======\033[m"
 				sleep 2
-				echo -e ""
-				update-alternatives --config java
-				rm jdk-7-linux-i586.tar.gz
-				echo -e ""
-				echo -e "\e[1;34mYour new JDk version is...\e[0m"
-				echo ""
-				java -version
-				sleep 3
-				echo ""
+				echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list
+				echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
+				apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+				apt-get update
+				apt-get -y install oracle-java8-installer
+				echo -e "\033[32m====== Done Installing ======\033[m"
+				echo -e "\033[32mTo remove java version 1.8\033[m"
+				echo -e "\033[32mapt-get --purge remove oracle-java8-installer\033[m"
 			else
-				echo -e "\e[1;31m[+] Downloading and Updating to jdk1.7.0\e[0m"
-				echo -e ""
-				wget --no-cookies --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com" "http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jdk-7u17-linux-x64.tar.gz"
-				tar zxvf jdk-7u17-linux-x64.tar.gz
-				mv jdk1.7.0_17/ /usr/lib/jvm
-				update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.7.0_17/jre/bin/java 2
-				echo -e "\e[1;34mWhen prompted, select option 2\e[0m"
-				sleep 2
-				echo -e ""
-				update-alternatives --config java
-				rm jdk-7u17-linux-x64.tar.gz
-				echo -e ""
-				echo -e "\e[1;34mYour new JDk version is...\e[0m"
-				echo ""
-				java -version
-				sleep 3
-				echo ""
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
-		else
-			echo -e "\e[32m[-] Ok,maybe later !\e[0m"
-		fi
-
+}
+######## Install Sopcast
+function installsopcast {
+	echo -e "\e[1;31mThis option will install sopcast!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Sopcast ======\033[m"
+				sleep 2
+				wget https://launchpad.net/~jason-scheunemann/+archive/ppa/+files/sp-auth_3.2.6~ppa1~precise3_i386.deb
+				dpkg -i sp-auth_3.2.6~ppa1~precise3_*.deb
+				apt-get -f install
+				wget https://launchpad.net/~jason-scheunemann/+archive/ppa/+files/sopcast-player_0.8.5~ppa~precise1_i386.deb
+				dpkg -i sopcast-player_0.8.5~ppa~precise1_*.deb
+				apt-get -f install
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
 }
 ######## Install Veil-Framework
 function installveil {
@@ -472,6 +416,44 @@ function installfirefox {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+######## Install VLC
+function installvlc {
+	echo -e "\e[1;31mThis option will fix VLC error!\e[0m"
+	echo -e ""
+	echo -e "Do you want to fix it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Fixing VLC ======\033[m"
+				sleep 2
+				sed -i 's/geteuid/getppid/g' /usr/bin/vlc				
+				echo -e "\033[32m====== Done Fixing ======\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install VLC
+function installvlc {
+	echo -e "\e[1;31mThis option will fix VMare error!\e[0m"
+	echo -e ""
+	echo -e "Do you want to fix it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Fixing VMWare ======\033[m"
+				sleep 2
+				cd /usr/lib/vmware/modules/source
+ 				tar -xvf vmnet.tar			
+				mv vmnet-only/netif.c vmnet-only/netif.txt
+				sed -i 's/`dev = alloc_netdev(sizeof *netIf, deviceName, VNetNetIfSetup)" -eq dev = alloc_netdev(sizeof *netIf, deviceName, NET_NAME_UNKNOWN, VNetNetIfSetup)/g' vmnet-only/netif.txt
+				mv vmnet-only/netif.txt vmnet-only/netif.c	
+				tar -cvf vmnet.tar vmnet-only/
+				rm -rf vmnet-only/
+				echo -e "\033[32m====== Done Fixing ======\033[m"
+				echo -e "\033[32m====== If it doesn't work, please view video below ======\033[m"				
+				echo -e "\033[32m====== https://www.youtube.com/watch?v=qH3OSBAMNA4 ======\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######## Software and System Tools menu
 function softwaresandystemtools {
 clear
@@ -479,10 +461,20 @@ echo -e "
 \033[31m#######################################################\033[m
                 Software and System Tools
 \033[31m#######################################################\033[m"
-select menusel in "VirtualBox" "Bleachbit" "GoldenDict" "Flash" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Fix Device not managed error" "Change Kali Login Wallpaper" "Firefox" "Install All" "Back to Main"; do
+select menusel in "VirtualBox" "Bleachbit" "Sopcast" "GoldenDict" "Java" "Pinta" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Fix VMWare" "Fix Device not managed error" "Fix VLC" "Change Kali Login Wallpaper" "Firefox" "Install All" "Back to Main"; do
 case $menusel in
 	"VirtualBox")
 		installvirtualbox
+		pause
+		softwaresandystemtools ;;
+
+	"Fix VMWare")
+		installvmware
+		pause
+		softwaresandystemtools ;;
+
+	"Sopcast")
+		installsopcast
 		pause
 		softwaresandystemtools ;;
 
@@ -501,10 +493,6 @@ case $menusel in
 		pause
 		softwaresandystemtools ;;
 		
-	"Flash")
-		installflash
-		pause
-		softwaresandystemtools ;;
 		
 	"Java")
 		installjava
@@ -515,14 +503,7 @@ case $menusel in
 		installpinta
 		pause
 		softwaresandystemtools ;;
-	"RecordMyDesktop")
-		installrecordmydesktop
-		pause
-		softwaresandystemtools ;;
-	"GnomeTweakTool")
-		installgnometweaktool
-		pause
-		softwareandsystemtools ;;
+	
 	"ibus")
 		installibus
 		pause
@@ -563,10 +544,17 @@ case $menusel in
 		installbittorrent
 		pause
 		softwaresandystemtools ;;
+
 	"Fix Device not managed error")
 		installfixdevice
 		pause
 		softwaresandystemtools ;;
+
+	"Fix VLC")
+		installvlc
+		pause
+		softwaresandystemtools ;;
+
 	"Change Kali Login Wallpaper")
 		installchangelogin
 		pause
@@ -576,9 +564,7 @@ case $menusel in
 		installvirtualbox
 		installbleachbit
 		installGoldendict
-		installflash
 		installpinta
-		installrecordmydesktop
 		installgnometweaktool
 		installibus
 		installlibreoffice
@@ -1220,6 +1206,28 @@ function installwifite {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+######## Install VulScript for Nmap
+function installvulscript {
+	echo -e "\e[1;31mThis option will install vulsript for nmap!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Vulscript ======\033[m"
+				sleep 2
+				apt-get -y -qq install nmap curl || echo -e ' '${RED}'[!] Issue with apt-get'${RESET} 1>&2
+				mkdir -p /usr/share/nmap/scripts/vulscan/
+				curl --progress -k -L -f "http://www.computec.ch/projekte/vulscan/download/nmap_nse_vulscan-2.0.tar.gz" > /tmp/nmap_nse_vulscan.tar.gz || echo -e ' '${RED}'[!]'${RESET}" Issue downloading file" 1>&2      #***!!! hardcoded version! Need to manually check for updates
+				gunzip /tmp/nmap_nse_vulscan.tar.gz
+				tar -xf /tmp/nmap_nse_vulscan.tar -C /usr/share/nmap/scripts/
+				#--- Fix permissions (by default its 0777)
+				chmod -R 0755 /usr/share/nmap/scripts/; find /usr/share/nmap/scripts/ -type f -exec chmod 0644 {} \;
+				#--- Remove old temp files
+rm -f /tmp/nmap_nse_vulscan.tar*
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######### Install Hacking Tools
 function hackingtools {
 clear
@@ -1228,7 +1236,7 @@ echo -e "
                 Install Hacking Tools
 \033[31m#######################################################\033[m"
 
-select menusel in "Veil-Framework" "Backdoor-Factory" "Shellter" "Unicorn" "avoid" "pyobfuscate" "wifite" "sparta" "Dirs3arch" "autopwn" "mitmf" "commix" "EyeWitness" "gcat" "maligno" "wig" "Windows Exploit Suggester" "Linux Exploit Suggester" "shellcode_tools" "DAws" "Serbot" "Pompem" "LaZagne" "Install All" "Back to Main"; do
+select menusel in "Veil-Framework" "Backdoor-Factory" "Shellter" "Unicorn" "VulScript for Nmap" "avoid" "pyobfuscate" "wifite" "sparta" "Dirs3arch" "autopwn" "mitmf" "commix" "EyeWitness" "gcat" "maligno" "wig" "Windows Exploit Suggester" "Linux Exploit Suggester" "shellcode_tools" "DAws" "Serbot" "Pompem" "LaZagne" "Install All" "Back to Main"; do
 case $menusel in
 	"Veil-Framework")
 		installveil
@@ -1239,7 +1247,12 @@ case $menusel in
 		installwifite
 		pause
 		hackingtools ;;
-		
+
+	"VulScript for Nmap")
+		installvulscript
+		pause
+		hackingtools ;;
+
 	"Backdoor-Factory")
 		installbackdoorfactory
 		pause
@@ -1406,16 +1419,16 @@ echo -e "
 |______________________________________________________________________________|
 \033[m                                        
                   	    Script by DDOS
-                     	    Version : 2.0.1 \033[32m$version\033[m
+                     	    Version : 3.0 \033[32m$version\033[m
 Script Location : \033[32m$0\033[m
 Connection Info :-----------------------------------------------
   Gateway: \033[32m$DEFAULT_ROUTE\033[m Interface: \033[32m$IFACE\033[m My LAN Ip: \033[32m$MYIP\033[m
 \033[32m###############################################################################\033[m"
 
-select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Update tools to latest version" "Must View" "EXIT PROGRAM"; do
+select menusel in "Desktop/Windows Manager in Kali Linux 2.0" "Software and System Tools" "Install Hacking Tools" "Update tools to latest version" "Must View" "EXIT PROGRAM"; do
 case $menusel in
-	"Update Kali")
-		updatekali
+	"Desktop/Windows Manager in Kali Linux 2.0")
+		Desktopmanager
 		clear ;;
 	
 	"Software and System Tools")
