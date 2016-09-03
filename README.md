@@ -1,5 +1,10 @@
 # ddos-script
 All  things to do after installing Kali Linux and Add more awesome hacking tools to your Kali Linux system
+Change log v4.1:
++ Add Kali Linux 2.0 repository for installing more package
++ Add "Update kali linux Sana to Kali linux 2016.2" option
++ Add "how to install wireless driver in your kali linux 2016.2 system" option
++ Add "Transparent-top bar-notification-windows on Kali Linux" option
 Change log v4:
 - change source.list kali linux rolling
 - modify video tutorial links
