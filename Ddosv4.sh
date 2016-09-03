@@ -12,24 +12,29 @@ echo -e "
 \033[31m#######################################################\033[m
                 Let's Update Kali
 \033[31m#######################################################\033[m"
-select menusel in "Update sources.list" "Update Kali" "Update and Clean Kali" "Back to Main"; do
+select menusel in "Update sources.list (Included kali sana repository for installing more package)" "Update Kali Sana 2.0 to Kali 2016.2" "Update and Clean Kali" "Back to Main"; do
 case $menusel in
-        "Update sources.list")
+        "Update sources.list (Included kali sana repository for installing more package)")
                 
 		echo -e "\033[31m====== Adding new sources list and updating ======\033[m"
+		rm /etc/apt/sources.list
 		echo "" >> /etc/apt/sources.list
-		echo '# Security updates ' >> /etc/apt/sources.list
 		echo 'deb http://http.kali.org/kali kali-rolling main non-free contrib' >> /etc/apt/sources.list
+		echo 'deb-src http://http.kali.org/kali kali-rolling main contrib non-free' >> /etc/apt/sources.list
+		echo 'deb http://old.kali.org/kali sana main non-free contrib' >> /etc/apt/sources.list
 		apt-get update
-		apt-get dist-upgrade
 		pause
 		clear ;;	
-	"Update Kali")
+	"Update Kali Sana 2.0 to Kali 2016.2")
 		clear
-		echo -e "\033[32mUpdating Kali\033[m"
+		echo -e "\033[32mUpdating Kali Sana to Kali Linux 2016.2\033[m"
+		rm /etc/apt/sources.list
+		echo "" >> /etc/apt/sources.list
+		echo 'deb http://http.kali.org/kali kali-rolling main non-free contrib' >> /etc/apt/sources.list
+		echo 'deb-src http://http.kali.org/kali kali-rolling main contrib non-free' >> /etc/apt/sources.list
 		#apt-get update && apt-get -y dist-upgrade
 		apt-get update && apt-get -y upgrade 
-		echo -e "\033[32mDone updating kali\033[m"
+		echo -e "\033[32mDone updating kali. You need to reboot your Kali Linux system\033[m"
 		pause
 		clear ;;
 	
@@ -466,6 +471,30 @@ function installfixdevice {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+######## Install installwirelessdriver
+function installwirelessdriver {
+	echo -e "\e[1;31mThis option will Install Wifi card driver in Kali Linux!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				firefox https://www.youtube.com/watch?v=AZ0lPu9NhWQ
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install installtransparent
+function installtransparent {
+	echo -e "\e[1;31mThis option will Transparent-top bar-notification-windows on Kali Linux!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				firefox https://www.youtube.com/watch?v=S3Dex1ltDs4
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######## Install Java version 8
 function installjava {
 	echo -e "\e[1;31mThis option will install java!\e[0m"
@@ -550,10 +579,15 @@ echo -e "
 \033[31m#######################################################\033[m
                 Software and System Tools
 \033[31m#######################################################\033[m"
-select menusel in "VirtualBox" "Bleachbit" "GoldenDict" "Sopcast" "Flash" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "system-config-samba" "Fix Device not managed error" "Change Kali Login Wallpaper" "Firefox" "MinGW" "Vmare-tools" "Install All" "Back to Main"; do
+select menusel in "VirtualBox" "Bleachbit" "GoldenDict" "Sopcast" "Flash" "Transparent-top bar-notification-windows on Kali Linux" "Install Wifi card driver in Kali Linux" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "system-config-samba" "Fix Device not managed error" "Change Kali Login Wallpaper" "Firefox" "MinGW" "Vmare-tools" "Install All" "Back to Main"; do
 case $menusel in
 	"VirtualBox")
 		installvirtualbox
+		pause
+		softwaresandystemtools ;;
+
+	"Transparent-top bar-notification-windows on Kali Linux")
+		installtransparent
 		pause
 		softwaresandystemtools ;;
 
@@ -564,6 +598,10 @@ case $menusel in
 	
 	"Firefox")
 		installfirefox
+		pause
+		softwaresandystemtools ;;
+	"Install Wifi card driver in Kali Linux")
+		installwirelessdriver
 		pause
 		softwaresandystemtools ;;
 	"Java")
@@ -2387,7 +2425,7 @@ echo -e "
 |______________________________________________________________________________|
 \033[m                                        
                   	    Script by DDOS
-                     	    Version : 4.0 \033[32m$version\033[m
+                     	    Version : 4.1 \033[32m$version\033[m
 Script Location : \033[32m$0\033[m
 Connection Info :-----------------------------------------------
   Gateway: \033[32m$DEFAULT_ROUTE\033[m Interface: \033[32m$IFACE\033[m My LAN Ip: \033[32m$MYIP\033[m
@@ -2413,7 +2451,7 @@ case $menusel in
 	"Must View")
 		firefox https://www.facebook.com/haking.cracking.tutorial
 		firefox https://www.youtube.com/c/penetrationtestingwithddos
-		firefox http://www.ddoshackingarticles.com
+		firefox http://kali-linux.co
 		pause
 		clear ;;
 	
