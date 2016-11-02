@@ -1,7 +1,14 @@
 # ddos-script
 All  things to do after installing Kali Linux and Add more awesome hacking tools to your Kali Linux system
 
-
+Chage log v4.5:
++ fix sound mute and enable pulseaudio run startup
++ install latest virtualbox, virtualbox-ext-pack and fix unable connect usb to virtualbox and fix "Kernel driver not installed (rc=-1908)"
++ add google-chrome installation
++ update latest tor browser
++ add install metasploit, aircrack-ng on ubuntu/linux mint
++ add netripper tool for sniff https password
++ add fluxion tool
 Change log v4.1:
 + Add Kali Linux 2.0 repository for installing more package
 + Add "Update kali linux Sana to Kali linux 2016.2" option
