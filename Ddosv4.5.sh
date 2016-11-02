@@ -73,33 +73,20 @@ function installDirs3arch {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
-######### Install VirutalBox
+#### Bleachbit Virtualbox
 function installvirtualbox {
-	echo -e "\e[1;33mThis option will install VirtualBox.\e[0m"
-	echo "Do you want to install it ? (Y/N)"
+	echo -e "\e[1;31mThis option will install Virtualbox and fix "Unable to connect USB devices to a VirtualBox guest from Debian"!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
 	read install
 	if [[ $install = Y || $install = y ]] ; then
-			read -p "Are you using a 32bit or 64bit operating system [ENTER: 32 or 64]? " operatingsys
-			if [ "$operatingsys" == "32" ]; then 
-				echo -e "\e[1;33m[+] Downloading Virtualbox for Debian 32bit\e[0m"
-				wget http://download.virtualbox.org/virtualbox/4.3.30/virtualbox-4.3_4.3.30-101610~Debian~wheezy_i386.deb
-				echo -e "\e[31m[-] Done with download!\e[0m"
-				echo -e "\e[1;33m[+] Installing VirtualBox\e[0m"
-				dpkg -i virtualbox-4.3_4.3.30-101610~Debian~wheezy_i386.deb
-				rm virtualbox-4.3_4.3.30-101610~Debian~wheezy_i386.deb
-				echo -e "\e[34m[-] Done installing VirtualBox on your Kali Linux system!\e[0m"
-			else
-				echo -e "\e[1;33m[+] Downloading VirtualBox for Debian 64bit\e[0m"
-				wget http://download.virtualbox.org/virtualbox/4.3.30/virtualbox-4.3_4.3.30-101610~Debian~wheezy_amd64.deb
-				echo -e "\e[31m[-] Done with download!\e[0m"
-				echo -e "\e[1;33m[+] Installing VirtualBox\e[0m"
-				dpkg -i virtualbox-4.3_4.3.30-101610~Debian~wheezy_amd64.deb
-				rm virtualbox-4.3_4.3.30-101610~Debian~wheezy_amd64.deb
-				echo -e "\e[34m[-] Done installing VirtualBox on your Kali Linux system!\e[0m"
-			fi
-		else
-			echo -e "\e[34m[-] Ok,maybe later !\e[0m"
-		fi
+		echo -e "\e[31m[+] Installing Virtualbox now!\e[0m"
+		apt-get install -y virtualbox-guest-x11 virtualbox virtualbox-ext-pack linux-headers*
+		usermod -a -G vboxusers ddos
+		echo -e "\e[32m[-] Done Installing Virtualbox!\e[0m"		
+	else
+		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+	fi	
 }
 #### Bleachbit Installation
 function installbleachbit {
@@ -125,6 +112,22 @@ function installGoldendict {
 		echo -e "\e[31m[+] Installing GoldenDict now!\e[0m"
 		apt-get -y install goldendict 
 		echo -e "\e[32m[-] Done Installing goldendict!\e[0m"		
+	else
+		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+	fi	
+}
+#### Metasploit Installation
+function installmetasploitframework {
+	echo -e "\e[1;31mThis option will install metasploit framework on Ubuntu/Mint!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+	read install
+	if [[ $install = Y || $install = y ]] ; then
+		echo -e "\e[31m[+] Installing Metasploit now!\e[0m"
+		curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall
+  		chmod 755 msfinstall
+  		./msfinstall 
+		echo -e "\e[32m[-] Done Installing Metasploit!\e[0m"		
 	else
 		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 	fi	
@@ -273,20 +276,52 @@ if [ ! -f /root/Desktop/vpnbook.sh ]; then
 		echo -e "\e[32m[-] VPN-BOOK already installed !\e[0m"
 	fi
 }
-
-######## Install Tor Browser
+######### Install Google Chrome
+function installgooglechrome {
+	echo -e "\e[1;33mThis option will install google chrome.\e[0m"
+	echo "Do you want to install it ? (Y/N)"
+	read install
+	if [[ $install = Y || $install = y ]] ; then
+			read -p "Are you using a 32bit or 64bit operating system [ENTER: 32 or 64]? " operatingsys
+			if [ "$operatingsys" == "32" ]; then 
+				echo -e "\e[1;33m[+] Downloading Google Chrome for Debian 32bit\e[0m"
+				wget https://archive.org/download/google-chrome-stable_48.0.2564.116-1_i386/google-chrome-stable_48.0.2564.116-1_i386.deb
+				echo -e "\e[31m[-] Done with download!\e[0m"
+				echo -e "\e[1;33m[+] Installing google chrome\e[0m"
+				dpkg -i google-chrome-stable_48.0.2564.116-1_i386.deb
+				rm google-chrome-stable_48.0.2564.116-1_i386.deb
+				apt-get -f install
+				echo -e "\e[34m[-] Done installing Google Chrome on your Kali Linux system!\e[0m"
+				echo -e "\e[34m[-] To run Google Chrome, use command: /usr/bin/google-chrome-stable --no-sandbox --user-data-dir\e[0m"
+			else
+				echo -e "\e[1;33m[+] Downloading Google Chrome for Debian 64bit\e[0m"
+				wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+				echo -e "\e[31m[-] Done with download!\e[0m"
+				echo -e "\e[1;33m[+] Installing Google Chrome\e[0m"
+				dpkg -i google-chrome-stable_current_amd64.deb
+				rm google-chrome-stable_current_amd64.deb
+				apt-get -f install
+				echo -e "\e[34m[-] Done installing Google Chrome on your Kali Linux system!\e[0m"
+				echo -e "\e[34m[-] To run Google Chrome, use command: /usr/bin/google-chrome-stable --no-sandbox --user-data-dir\e[0m"
+			fi
+		else
+			echo -e "\e[34m[-] Ok,maybe later !\e[0m"
+		fi
+}
+######### Install Tor Browser
 function installtorbrowser {
-if [ ! -f /root/tor-browser_en-US/Browser/start_tor_browser ]; then
-	echo -e "\e[1;31mThis option will install Tor Browser!\e[0m"
-	echo -e ""
-	echo -e "Do you want to install it ? (Y/N)"
-			read install
-			if [[ $install = Y || $install = y ]] ; then	
-				echo -e "\033[31m====== Installing Tor Browser ======\033[m"
-				sleep 2
+	echo -e "\e[1;33mThis option will install Tor Browser.\e[0m"
+	echo "Do you want to install it ? (Y/N)"
+	read install
+	if [[ $install = Y || $install = y ]] ; then
+			read -p "Are you using a 32bit or 64bit operating system [ENTER: 32 or 64]? " operatingsys
+			if [ "$operatingsys" == "32" ]; then 
+				echo -e "\e[1;33m[+] Downloading Tor Browser 32bit\e[0m"
 				cd /root/Desktop
-				wget https://www.torproject.org/dist/torbrowser/4.5.3/tor-browser-linux32-4.5.3_en-US.tar.xz
-				tar -xf tor-browser-linux32-4.5.3_en-US.tar.xz
+				wget https://www.torproject.org/dist/torbrowser/6.0.5/tor-browser-linux32-6.0.5_en-US.tar.xz
+				echo -e "\e[31m[-] Done with download!\e[0m"
+				echo -e "\e[1;33m[+] Installing Tor Browser\e[0m"
+				tar -xf tor-browser-linux32-6.0.5_en-US.tar.xz
 				cd /root/Desktop/tor-browser_en-US/Browser/
 				mv start-tor-browser start-tor-browser.txt
 				sed -i 's/`id -u`" -eq 0/`id -u`" -eq 1/g' start-tor-browser.txt
@@ -295,12 +330,26 @@ if [ ! -f /root/tor-browser_en-US/Browser/start_tor_browser ]; then
 				ls -ld
 				chown -R root:root .
 				ls -ld
+				echo -e "\e[34m[-] Done installing Tor Browser on your Kali Linux system!\e[0m"
 			else
-				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+				cd /root/Desktop
+				wget https://www.torproject.org/dist/torbrowser/6.0.5/tor-browser-linux64-6.0.5_en-US.tar.xz
+				echo -e "\e[31m[-] Done with download!\e[0m"
+				echo -e "\e[1;33m[+] Installing Tor Browser\e[0m"
+				tar -xf tor-browser-linux64-6.0.5_en-US.tar.xz
+				cd /root/Desktop/tor-browser_en-US/Browser/
+				mv start-tor-browser start-tor-browser.txt
+				sed -i 's/`id -u`" -eq 0/`id -u`" -eq 1/g' start-tor-browser.txt
+				mv start-tor-browser.txt start-tor-browser
+				cd ..
+				ls -ld
+				chown -R root:root .
+				ls -ld
+				echo -e "\e[34m[-] Done installing Tor Browser on your Kali Linux system!\e[0m"
 			fi
-	else
-		echo -e "\e[32m[-] Tor Browser already installed !\e[0m"
-	fi
+		else
+			echo -e "\e[34m[-] Ok,maybe later !\e[0m"
+		fi
 }
 ######## Install VPN
 function installvpn {
@@ -535,6 +584,21 @@ function installsopcast {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+######## Install fix sound kali linux 2016.2
+function installsoudkali2016 {
+	echo -e "\e[1;31mThis option will fix sound mute and start pulseaudio on startup!\e[0m"
+	echo -e ""
+	echo -e "Do you want to fix it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Fixing Sound ======\033[m"
+				sleep 2
+				systemctl --user enable pulseaudio
+				systemctl --user start pulseaudio
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######## Install Wordlist
 function installwordlist {
 	echo -e "\e[1;31mThis option will download more wordlist to your Kali Linux system!\e[0m"
@@ -579,10 +643,15 @@ echo -e "
 \033[31m#######################################################\033[m
                 Software and System Tools
 \033[31m#######################################################\033[m"
-select menusel in "VirtualBox" "Bleachbit" "GoldenDict" "Sopcast" "Flash" "Transparent-top bar-notification-windows on Kali Linux" "Install Wifi card driver in Kali Linux" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "system-config-samba" "Fix Device not managed error" "Change Kali Login Wallpaper" "Firefox" "MinGW" "Vmare-tools" "Install All" "Back to Main"; do
+select menusel in "VirtualBox" "Bleachbit" "Google Chrome" "GoldenDict" "Sopcast" "Flash" "Transparent-top bar-notification-windows on Kali Linux" "Install Wifi card driver in Kali Linux" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Fix Sound Mute on Kali Linux 2016.2" "Archive-Manager" "Gdebi" "bittorrent client" "system-config-samba" "Fix Device not managed error" "Change Kali Login Wallpaper" "Firefox" "MinGW" "Vmare-tools" "Install All" "Back to Main"; do
 case $menusel in
 	"VirtualBox")
 		installvirtualbox
+		pause
+		softwaresandystemtools ;;
+
+	"Fix Sound Mute on Kali Linux 2016.2")
+		installsoudkali2016
 		pause
 		softwaresandystemtools ;;
 
@@ -639,6 +708,10 @@ case $menusel in
 		
 	"Pinta")
 		installpinta
+		pause
+		softwaresandystemtools ;;
+	"Google Chrome")
+		installgooglechrome
 		pause
 		softwaresandystemtools ;;
 	"RecordMyDesktop")
@@ -712,6 +785,8 @@ case $menusel in
 		installvpn
 		installtorbrowser
 		installfixsoundmute
+		installsoudkali2016
+		installgooglechrome
 		installarchivemanager
 		installgdebi
 		installbittorrent
@@ -927,6 +1002,30 @@ if [ ! -f /opt/BypassAV/the-backdoor-factory/backdoor.py ]; then
 			fi
 	else
 		echo -e "\e[32m[-] Backdoor Factory already installed !\e[0m"
+	fi
+}
+######## Install Fluxion
+function installfluxion {
+if [ ! -f /opt/wireless/fluxion ]; then
+	echo -e "\e[1;31mThis option will install Fluxion!\e[0m"
+	echo -e "\e[1;31mEvil Twin wireless attacking method\e[0m"
+		echo -e "\e[1;31mHow to use fluxion\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=AfVhC5y3vXk\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Fluxion ======\033[m"
+				sleep 2
+				git clone https://github.com/deltaxflux/fluxion.git /opt/wireless/fluxion
+				cd /opt/wireless/fluxion
+				chmod +x Install.sh
+				./Install.sh
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] Fluxion already installed !\e[0m"
 	fi
 }
 ######## Install pyobfuscate
@@ -1959,6 +2058,24 @@ function installimpacket {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+######## Install aircrack-ng
+function installaircrack {
+	echo -e "\e[1;31mThis option will install aircrack-ng on Ubuntu/Linux Mint!\e[0m"
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing aircrack-ng ======\033[m"
+				sleep 2
+				apt-get install build-essential libssl-dev libnl-3-dev libnl-genl-3-dev dpkg-dev g++ g++-4.8 libc-dev-bin libc6-dev libstdc++-4.8-dev zlib1g-dev debian-keyring g++-multilib g++-4.8-multilib gcc-4.8-doc libstdc++6-4.8-dbg glibc-doc libstdc++-4.8-doc libalgorithm-merge-perl libssl-doc libalgorithm-diff-xs-perl libssl-dev build-essential
+				wget http://download.aircrack-ng.org/aircrack-ng-1.2-rc4.tar.gz
+				tar -xzf aircrack-ng-1.2-rc4.tar.gz
+				cd aircrack-ng-1.2-rc4
+				make && make install
+				echo -e "\e[32m[-] Done Installing!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######## Install Hcon
 function installhcon {
 	echo -e "\e[1;31mThis option will install Hcon!\e[0m"
@@ -2032,6 +2149,31 @@ function installharness {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+######## Install netripper
+function installnetripper {
+	echo -e "\e[1;31mThis option will install netripper!\e[0m"
+	echo -e "\e[1;31mNetRipper – this is a fairly recent tool that is positioned for the post-operating system based on Windows and uses a number of non-standard approach to extract sensitive data. It uses API hooking in order to intercept network traffic and encryption related functions from a low privileged user, being able to capture both plain-text traffic and encrypted traffic before encryption/after decryption. This tool was first demonstrated at the Defcon 23 in Vegas.\e[0m"
+	echo -e "\e[1;31mHow to use netripper\e[0m"
+	echo -e "\e[1;31mhttp://kali-linux.co/forums/topic/shellter-metasploit-netripper-bypass-antivirus-and-sniff-https-password\e[0m"
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing netripper ======\033[m"
+				sleep 2
+				rm -rf /opt/exploitation/Network/netripper/
+				git clone git clone https://github.com/NytroRST/NetRipper.git /opt/exploitation/Network/netripper/
+				cd /opt/exploitation/Network/netriper/Metasploit
+				cp netripper.rb /usr/share/metasploit-framework/modules/post/windows/gather/netripper.rb
+				mkdir /usr/share/metasploit-framework/modules/post/windows/gather/netripper
+				g++ -Wall netripper.cpp -o netripper
+				cp netripper /usr/share/metasploit-framework/modules/post/windows/gather/netripper/netripper
+				cd ../Release/
+				cp DLL.dll /usr/share/metasploit-framework/modules/post/windows/gather/netripper/DLL.dll
+				echo -e "\e[32m[-] Done Installing!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######### Install Hacking Tools
 function hackingtools {
 clear
@@ -2040,10 +2182,20 @@ echo -e "
                 Install Hacking Tools
 \033[31m#######################################################\033[m"
 
-select menusel in "Veil-Framework" "Backdoor-Factory" "Shellter" "Unicorn" "avoid" "Harness" "Empire" "PSRecon" "SPF" "hcon" "miasm" "Impacket" "pyobfuscate" "Nosql-Exploitation-Framework" "bettercap" "Dirs3arch" "sparta" "autopwn" "mitmf" "commix" "EyeWitness" "gcat" "maligno" "wig" "Windows Exploit Suggester" "Linux Exploit Suggester" "shellcode_tools" "DAws" "Serbot" "Pompem" "LaZagne" "discover" "masscan" "rawr" "recon-ng" "seclist" "golismero" "wpscan" "zarp" "clusterd" "YSO-Mobile-Security-Framework" "jsgifkeylogger" "DarkCometExploit" "WS-Attacker" "lumberjackjs" "fuzzdb" "ZCR-Shellcoder" "wpa-autopwn" "Crackq" "RIPS" "wifite" "DSJS" "sleepy-puppy" "Brakeman" "inception" "owtf" "PACK" "imagejs" "backdoor" "PyPhisher" "mpc" "Wordlist" "Install All" "Back to Main"; do
-case $menusel in
+select menusel in "Veil-Framework" "Fluxion" "Aircrack" "Metasploit Framework" "NetRipper" "Backdoor-Factory" "Shellter" "Unicorn" "avoid" "Harness" "Empire" "PSRecon" "SPF" "hcon" "miasm" "Impacket" "pyobfuscate" "Nosql-Exploitation-Framework" "bettercap" "Dirs3arch" "sparta" "autopwn" "mitmf" "commix" "EyeWitness" "gcat" "maligno" "wig" "Windows Exploit Suggester" "Linux Exploit Suggester" "shellcode_tools" "DAws" "Serbot" "Pompem" "LaZagne" "discover" "masscan" "rawr" "recon-ng" "seclist" "golismero" "wpscan" "zarp" "clusterd" "YSO-Mobile-Security-Framework" "jsgifkeylogger" "DarkCometExploit" "WS-Attacker" "lumberjackjs" "fuzzdb" "ZCR-Shellcoder" "wpa-autopwn" "Crackq" "RIPS" "wifite" "DSJS" "sleepy-puppy" "Brakeman" "inception" "owtf" "PACK" "imagejs" "backdoor" "PyPhisher" "mpc" "Wordlist" "Install All" "Back to Main"; do
+case $menusel in 
 	"Veil-Framework")
 		installveil
+		pause 
+		hackingtools ;;
+
+	"Metasploit Framework")
+		installmetasploitframework
+		pause 
+		hackingtools ;;
+
+	"NetRipper")
+		installnetripper
 		pause 
 		hackingtools ;;
 
@@ -2277,6 +2429,11 @@ case $menusel in
 		installwpscan
 		pause
 		hackingtools ;;
+	"Aircrack")
+		installaircrack
+		pause
+		hackingtools ;;
+	
 	"zarp")
 		installzarp
 		pause
@@ -2329,10 +2486,16 @@ case $menusel in
 		installsleepy-puppy
 		pause
 		hackingtools ;;
+	"Fluxion")
+		installfluxion
+		pause
+		hackingtools ;;
 		
 	"Install All")
+		installfluxion
 		installveil
 		installbackdoorfactory
+		installnetripper
 		installshellter
 		installunicorn
 		installpyobfuscate
@@ -2344,6 +2507,8 @@ case $menusel in
 		installgcat
 		installwig
 		installbettercap
+		installmetasploitframework
+		installaircrack
 		installsparta
 		installwindowsexploitsuggester
 		installLinuxexploitsuggester
@@ -2420,12 +2585,12 @@ echo -e "
 |                                                                              |  
 |    My youtube channel: www.youtube.com/c/penetrationtestingwithddos          |
 |                                                                              |
-|    My website: www.ddoshackingarticles.com                                   |
+|    My website: kali-linux.co                                                 |
 |                                   [ OK ]                                     |
 |______________________________________________________________________________|
 \033[m                                        
                   	    Script by DDOS
-                     	    Version : 4.1 \033[32m$version\033[m
+                     	    Version : 4.5 \033[32m$version\033[m
 Script Location : \033[32m$0\033[m
 Connection Info :-----------------------------------------------
   Gateway: \033[32m$DEFAULT_ROUTE\033[m Interface: \033[32m$IFACE\033[m My LAN Ip: \033[32m$MYIP\033[m
