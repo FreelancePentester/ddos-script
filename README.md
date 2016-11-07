@@ -9,6 +9,7 @@ Chage log v4.5:
 + add install metasploit, aircrack-ng on ubuntu/linux mint
 + add netripper tool for sniff https password
 + add fluxion tool
+
 Change log v4.1:
 + Add Kali Linux 2.0 repository for installing more package
 + Add "Update kali linux Sana to Kali linux 2016.2" option
