@@ -1,7 +1,11 @@
 # ddos-script
 All  things to do after installing Kali Linux and Add more awesome hacking tools to your Kali Linux system
 
-Chage log v4.5:
+Change log v5.0:
++ add install dvwa
++ add install bwapp
+
+Change log v4.5:
 + fix sound mute and enable pulseaudio run startup
 + install latest virtualbox, virtualbox-ext-pack and fix unable connect usb to virtualbox and fix "Kernel driver not installed (rc=-1908)"
 + add google-chrome installation
