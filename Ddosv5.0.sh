@@ -1085,8 +1085,8 @@ if [ ! -f /opt/wireless/fluxion ]; then
 				sleep 2
 				git clone https://github.com/deltaxflux/fluxion.git /opt/wireless/fluxion
 				cd /opt/wireless/fluxion
-				chmod +x Install.sh
-				./Install.sh
+				chmod +x Installer.sh
+				./Installer.sh
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
