@@ -58,6 +58,44 @@ break
 
 done
 }
+######### Install WebApp Hacking Lab
+function WebAppLab {
+clear
+echo -e "
+\033[31m#######################################################\033[m
+                Install WebApp Hacking Lab
+\033[31m#######################################################\033[m"
+
+select menusel in "Installing bWAPP" "Installing DVWA" "Install All" "Back to Main"; do
+case $menusel in 
+	"Installing bWAPP")
+		installbWAPP
+		pause 
+		WebAppLab ;;
+	"Installing DVWA")
+		installdvwa
+		pause
+		WebAppLab ;;
+	"Install All")
+		installbWAPP
+		installdvwa
+		pause
+		WebAppLab ;;
+	"Back to Main")
+		clear
+		mainmenu ;;
+		
+	*)
+		screwup
+		WebAppLab ;;
+	
+		
+esac
+
+break
+
+done
+}
 ######## Install Dirs3arch
 function installDirs3arch {
 	echo -e "\e[1;31mThis option will install dirs3arch!\e[0m"
@@ -69,6 +107,34 @@ function installDirs3arch {
 				echo -e "\033[31m====== Installing dirs3arch ======\033[m"
 				sleep 2
 				git clone https://github.com/maurosoria/dirs3arch.git /opt/intelligence-gathering/WebApp/dirs3arch-master/
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install dvwa
+function installdvwa {
+	echo -e "\e[1;31mThis option will install dvwa!\e[0m"
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing dvwa ======\033[m"
+				sleep 2
+				chmod +x installing-dvwa.sh
+				./installing-dvwa.sh
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install bwapp
+function installbWAPP {
+	echo -e "\e[1;31mThis option will install bwapp!\e[0m"
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing bwapp ======\033[m"
+				sleep 2
+				chmod +x installing-bwapp.sh
+				./installing-bwapp.sh
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
@@ -2560,6 +2626,7 @@ break
 
 done
 }
+
 #### pause function
 function pause(){
    read -sn 1 -p "Press any key to continue..."
@@ -2590,13 +2657,13 @@ echo -e "
 |______________________________________________________________________________|
 \033[m                                        
                   	    Script by DDOS
-                     	    Version : 4.5 \033[32m$version\033[m
+                     	    Version : 5.0 \033[32m$version\033[m
 Script Location : \033[32m$0\033[m
 Connection Info :-----------------------------------------------
   Gateway: \033[32m$DEFAULT_ROUTE\033[m Interface: \033[32m$IFACE\033[m My LAN Ip: \033[32m$MYIP\033[m
 \033[32m###############################################################################\033[m"
 
-select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Update tools to latest version" "Must View" "EXIT PROGRAM"; do
+select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Install WebAPP Hacking Lab" "Update tools to latest version" "Must View" "EXIT PROGRAM"; do
 case $menusel in
 	"Update Kali")
 		updatekali
@@ -2609,6 +2676,10 @@ case $menusel in
 	"Install Hacking Tools")
 		hackingtools 
 		clear ;;
+	"Install WebAPP Hacking Lab")
+		WebAppLab
+		clear ;;
+
 	"Update tools to latest version")
 		updatetools
 		clear ;;
