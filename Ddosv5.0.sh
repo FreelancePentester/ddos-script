@@ -168,6 +168,30 @@ function installbleachbit {
 		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 	fi	
 }
+#### arc theme Installation
+function installarctheme {
+	echo -e "\e[1;31mThis option will install arc theme & arc icon!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+	read install
+	if [[ $install = Y || $install = y ]] ; then
+		echo -e "\e[31m[+] Installing arc theme & arc icon now!\e[0m"
+		apt-get -y install autoconf automake pkg-config libgtk-3-dev git
+		git clone https://github.com/horst3180/arc-theme --depth 1 && cd arc-theme
+		./autogen.sh --prefix=/usr
+		sudo make install
+		cd ..
+		rm -rf arc-theme
+		git clone https://github.com/horst3180/arc-icon-theme --depth 1 && cd arc-icon-theme
+		./autogen.sh --prefix=/usr
+		sudo make install
+		cd ..
+		rm  -rf arc-icon-theme 
+		echo -e "\e[32m[-] Done Installing arc theme!\e[0m"		
+	else
+		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+	fi	
+}
 #### GoldenDict Installation
 function installGoldendict {
 	echo -e "\e[1;31mThis option will install GoldenDict!\e[0m"
@@ -384,7 +408,7 @@ function installtorbrowser {
 			if [ "$operatingsys" == "32" ]; then 
 				echo -e "\e[1;33m[+] Downloading Tor Browser 32bit\e[0m"
 				cd /root/Desktop
-				wget https://www.torproject.org/dist/torbrowser/6.0.5/tor-browser-linux32-6.0.5_en-US.tar.xz
+				wget https://www.torproject.org/dist/torbrowser/6.5.1/tor-browser-linux32-6.5.1_en-US.tar.xz
 				echo -e "\e[31m[-] Done with download!\e[0m"
 				echo -e "\e[1;33m[+] Installing Tor Browser\e[0m"
 				tar -xf tor-browser-linux32-6.0.5_en-US.tar.xz
@@ -399,7 +423,7 @@ function installtorbrowser {
 				echo -e "\e[34m[-] Done installing Tor Browser on your Kali Linux system!\e[0m"
 			else
 				cd /root/Desktop
-				wget https://www.torproject.org/dist/torbrowser/6.0.5/tor-browser-linux64-6.0.5_en-US.tar.xz
+				wget https://www.torproject.org/dist/torbrowser/6.5.1/tor-browser-linux64-6.5.1_en-US.tar.xz
 				echo -e "\e[31m[-] Done with download!\e[0m"
 				echo -e "\e[1;33m[+] Installing Tor Browser\e[0m"
 				tar -xf tor-browser-linux64-6.0.5_en-US.tar.xz
@@ -709,13 +733,17 @@ echo -e "
 \033[31m#######################################################\033[m
                 Software and System Tools
 \033[31m#######################################################\033[m"
-select menusel in "VirtualBox" "Bleachbit" "Google Chrome" "GoldenDict" "Sopcast" "Flash" "Transparent-top bar-notification-windows on Kali Linux" "Install Wifi card driver in Kali Linux" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Fix Sound Mute on Kali Linux 2016.2" "Archive-Manager" "Gdebi" "bittorrent client" "system-config-samba" "Fix Device not managed error" "Change Kali Login Wallpaper" "Firefox" "MinGW" "Vmare-tools" "Install All" "Back to Main"; do
+select menusel in "VirtualBox" "Arc theme" "Bleachbit" "Google Chrome" "GoldenDict" "Sopcast" "Flash" "Transparent-top bar-notification-windows on Kali Linux" "Install Wifi card driver in Kali Linux" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Fix Sound Mute on Kali Linux 2016.2" "Archive-Manager" "Gdebi" "bittorrent client" "system-config-samba" "Fix Device not managed error" "Change Kali Login Wallpaper" "Firefox" "MinGW" "Vmare-tools" "Install All" "Back to Main"; do
 case $menusel in
 	"VirtualBox")
 		installvirtualbox
 		pause
 		softwaresandystemtools ;;
 
+		"Arc theme")
+		installarctheme
+		pause
+		softwaresandystemtools ;;
 	"Fix Sound Mute on Kali Linux 2016.2")
 		installsoudkali2016
 		pause
@@ -2652,15 +2680,12 @@ echo -e "
 |                                                                              |  
 |    My youtube channel: www.youtube.com/c/penetrationtestingwithddos          |
 |                                                                              |
-|    My website: kali-linux.co                                                 |
+|    My website: https://secutityonline.info                                   |
 |                                   [ OK ]                                     |
 |______________________________________________________________________________|
 \033[m                                        
                   	    Script by DDOS
-                     	    Version : 5.0 \033[32m$version\033[m
-Script Location : \033[32m$0\033[m
-Connection Info :-----------------------------------------------
-  Gateway: \033[32m$DEFAULT_ROUTE\033[m Interface: \033[32m$IFACE\033[m My LAN Ip: \033[32m$MYIP\033[m
+                     	    Version : 5.0.1 \033[32m$version\033[m
 \033[32m###############################################################################\033[m"
 
 select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Install WebAPP Hacking Lab" "Update tools to latest version" "Must View" "EXIT PROGRAM"; do
@@ -2687,7 +2712,7 @@ case $menusel in
 	"Must View")
 		firefox https://www.facebook.com/haking.cracking.tutorial
 		firefox https://www.youtube.com/c/penetrationtestingwithddos
-		firefox http://kali-linux.co
+		firefox https://securityonline.info
 		pause
 		clear ;;
 	
