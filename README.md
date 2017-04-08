@@ -1,5 +1,6 @@
 # ddos-script
 All  things to do after installing Kali Linux and Add more awesome hacking tools to your Kali Linux system
+
 Change log v5.0.1:
 + add Arc theme & icon
 + update Tor 6.5.1
@@ -31,6 +32,7 @@ Change log v4:
 - add vmware-tools
 
 Website: https://securityonline.info
+
 Facebook Fanpage: https://www.facebook.com/haking.cracking.tutorial
 
 Review ddos script: https://youtu.be/KZHg_xcK2fA
