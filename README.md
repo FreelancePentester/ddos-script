@@ -3,6 +3,7 @@ All  things to do after installing Kali Linux and Add more awesome hacking tools
 Change log v5.0.1:
 + add Arc theme & icon
 + update Tor 6.5.1
+
 Change log v5.0:
 + add install dvwa
 + add install bwapp
