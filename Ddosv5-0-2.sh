@@ -674,6 +674,22 @@ function installsopcast {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+######## Install nvidia
+function installnvidia {
+	echo -e "\e[1;31mThis option will install nvidia GPU driver!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing nvidia GPU driver ======\033[m"
+				sleep 2
+				apt update && apt dist-upgrade -y
+				apt install -y ocl-icd-libopencl1 nvidia-driver nvidia-cuda-toolkit
+				nvidia-smi
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 ######## Install fix sound kali linux 2016.2
 function installsoudkali2016 {
 	echo -e "\e[1;31mThis option will fix sound mute and start pulseaudio on startup!\e[0m"
@@ -733,17 +749,23 @@ echo -e "
 \033[31m#######################################################\033[m
                 Software and System Tools
 \033[31m#######################################################\033[m"
-select menusel in "VirtualBox" "Arc theme" "Bleachbit" "Google Chrome" "GoldenDict" "Sopcast" "Flash" "Transparent-top bar-notification-windows on Kali Linux" "Install Wifi card driver in Kali Linux" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Fix Sound Mute on Kali Linux 2016.2" "Archive-Manager" "Gdebi" "bittorrent client" "system-config-samba" "Fix Device not managed error" "Change Kali Login Wallpaper" "Firefox" "MinGW" "Vmare-tools" "Install All" "Back to Main"; do
+select menusel in "VirtualBox" "Arc theme" "Bleachbit" "Google Chrome" "GoldenDict" "Sopcast" "Flash" "Transparent-top bar-notification-windows on Kali Linux" "Install Wifi card driver in Kali Linux" "Java" "Pinta" "RecordMyDesktop" "GnomeTweakTool" "ibus" "libreoffice" "knotes" "VPN" "VPN-BOOK" "Tor Browser" "Fix Sound Mute" "Fix Sound Mute on Kali Linux 2016.2" "Archive-Manager" "Gdebi" "bittorrent client" "NVIDIA GPU Drivers" "system-config-samba" "Fix Device not managed error" "Change Kali Login Wallpaper" "Firefox" "MinGW" "Vmare-tools" "Install All" "Back to Main"; do
 case $menusel in
 	"VirtualBox")
 		installvirtualbox
 		pause
 		softwaresandystemtools ;;
 
-		"Arc theme")
+	"Arc theme")
 		installarctheme
 		pause
 		softwaresandystemtools ;;
+
+	"NVIDIA GPU Drivers")
+		installnvidia
+		pause
+		softwaresandystemtools ;;
+
 	"Fix Sound Mute on Kali Linux 2016.2")
 		installsoudkali2016
 		pause
@@ -2685,7 +2707,7 @@ echo -e "
 |______________________________________________________________________________|
 \033[m                                        
                   	    Script by DDOS
-                     	    Version : 5.0.1 \033[32m$version\033[m
+                     	    Version : 5.0.2 \033[32m$version\033[m
 \033[32m###############################################################################\033[m"
 
 select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Install WebAPP Hacking Lab" "Update tools to latest version" "Must View" "EXIT PROGRAM"; do
