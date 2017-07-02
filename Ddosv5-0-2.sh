@@ -2702,7 +2702,7 @@ echo -e "
 |                                                                              |  
 |    My youtube channel: www.youtube.com/c/penetrationtestingwithddos          |
 |                                                                              |
-|    My website: https://secutityonline.info                                   |
+|    My website: https://securityonline.info                                   |
 |                                   [ OK ]                                     |
 |______________________________________________________________________________|
 \033[m                                        
