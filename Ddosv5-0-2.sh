@@ -1036,6 +1036,7 @@ function updateBackdoorFactory {
 				sleep 2
 				rm -rf /opt/BypassAV/the-backdoor-factory/
 				git clone https://github.com/secretsquirrel/the-backdoor-factory.git /opt/BypassAV/the-backdoor-factory/
+				cd /opt/BypassAV/the-backdoor-factory/
 				./install.sh
 				echo -e "\e[32m[-] Done!\e[0m"
 			else
@@ -1239,7 +1240,7 @@ function installautopwn {
 				echo -e "\033[31m====== Installing autopwn ======\033[m"
 				sleep 2
 				git clone https://github.com/nccgroup/autopwn.git /opt/exploitation/WebApp/autopwn-master/
-				cd /opt/autopwn-master/
+				cd /opt/exploitation/WebApp/autopwn-master/
 				pip install -r requirements.txt
 				python setup.py install
 			else
@@ -1262,11 +1263,14 @@ if [ ! -f /opt/MITMf-master/mitmf.py ]; then
 				echo -e "\033[31m====== Installing mitmf ======\033[m"
 				sleep 2
 				rm -rf /opt/Sniffing-Spoofing/mitmf/
+				apt-get install python-dev python-setuptools libpcap0.8-dev libnetfilter-queue-dev libssl-dev libjpeg-dev libxml2-dev libxslt1-dev libcapstone3 libcapstone-dev libffi-dev file
+				pip install virtualenvwrapper
+				source /usr/bin/virtualenvwrapper.sh
+				mkvirtualenv MITMf -p /usr/bin/python2.7
 				git clone https://github.com/byt3bl33d3r/MITMf.git /opt/Sniffing-Spoofing/mitmf/
 				cd  /opt/Sniffing-Spoofing/mitmf/
-				./setup.sh
-				apt-get -y install python-dev python-setuptools libpcap0.8-dev libnetfilter-queue-dev
-				pip install --upgrade -r requirements.txt
+				cd MITMf && git submodule init && git submodule update --recursive
+				pip install -r requirements.txt
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
@@ -1304,7 +1308,7 @@ function installeyswitness {
 				sleep 2
 				rm -rf /opt/intelligence-gathering/WebApp/EyeWitness-master/
 				git clone https://github.com/ChrisTruncer/EyeWitness.git /opt/intelligence-gathering/WebApp/EyeWitness-master/
-				cd /opt/EyeWitness-master/setup/
+				cd /opt/intelligence-gathering/WebApp/EyeWitness-master/setup/
 				chmod a+x setup.sh
 				./setup.sh
 				
