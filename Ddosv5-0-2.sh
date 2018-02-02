@@ -501,7 +501,7 @@ function installbittorrent {
 			if [[ $install = Y || $install = y ]] ; then	
 				echo -e "\033[31m====== Installing bittorrent ======\033[m"
 				sleep 2
-				apt-get -y install deluge-torrent
+				apt-get -y install transmission
 				echo -e "\033[32m====== Done Installing bittorrent ======\033[m"
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
